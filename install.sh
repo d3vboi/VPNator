@@ -11,12 +11,18 @@ else
     echo "Directory $TARGET_DIR already exists"
 fi
 
-# Create the .pass file if it doesn't exist
+# Create the .pass file with username and password if it doesn't exist
 PASS_FILE="$TARGET_DIR/.pass"
 if [ ! -f "$PASS_FILE" ]; then
-    touch "$PASS_FILE"
+    echo "Go to https://account.protonvpn.com/account and copy the OpenVPN username and password."
+    echo "Enter OpenVPN username: "
+    read username
+
+    echo "Enter OpenVPN password (it will not be shown): "
+    read -s password
+
+    echo -e "$username\n$password" > "$PASS_FILE"
     echo "Created file $PASS_FILE"
-    echo "Enter your protonvpn IKEv2 username and password in $PASS_FILE"
 else
     echo "File $PASS_FILE already exists"
 fi
